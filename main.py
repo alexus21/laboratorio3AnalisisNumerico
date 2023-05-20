@@ -20,8 +20,11 @@ class UBarranquilla:
         # Mostrar valores
         print("Resultado obtenidos: \n", self.df.loc[index])
 
-    def findTotalStrangersAmount(self):
-        pass
+    def findTotalForeignersAmount(self):
+        filtering = self.df["Nationality"] != "Colombia"
+        filter = self.df.loc[filtering]
+        print("Salarios totales: ", filter["Salary"].sum())
+
 
 def firstExercise():
     dataDict = {"ID": [],
@@ -55,11 +58,10 @@ def firstExercise():
 
     ub = UBarranquilla(dataDict)
     ub.findMaxSalaryInfo()
-
+    ub.findTotalForeignersAmount()
 
 def main():
     firstExercise()
-
 
 
 if __name__ == "__main__":
