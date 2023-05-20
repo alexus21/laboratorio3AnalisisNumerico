@@ -22,8 +22,18 @@ class UBarranquilla:
 
     def findTotalForeignersAmount(self):
         filtering = self.df["Nationality"] != "Colombia"
-        filter = self.df.loc[filtering]
-        print("Salarios totales: ", filter["Salary"].sum())
+        filterItems = self.df.loc[filtering]
+        print("\nSalarios totales: ", filterItems["Salary"].sum())
+        percentage = round((filterItems["Salary"].sum() / self.df["Salary"].sum()) * 100, 2)
+        print("Porcentaje: ", percentage, "%")
+
+    def findDepartmentWithMorePayments(self):
+        morePayments = self.df.groupby["Department"]("Salary").sum()
+        index = morePayments.idmax()
+
+        # Mostrar valores
+        # print("Departamento con mas ingresos: \n", self.df.loc[index])
+        print("\nSalarios totales: ", index)
 
 
 def firstExercise():
@@ -39,12 +49,39 @@ def firstExercise():
 
     while continueOp == 1:
         employeeNumber = int(input("Numero del empleado: "))
+
+        while employeeNumber <= 0:
+            employeeNumber = int(input("Numero del empleado: "))
+
         fullName = input("Nombre y apellido: ")
+
+        while fullName == "":
+            fullName = input("Nombre y apellido: ")
+
         department = input("Departamento: ")
+
+        while department == "":
+            department = input("Departamento: ")
+
         jobHeld = input("Posición: ")
+
+        while jobHeld == "":
+            jobHeld = input("Posición: ")
+
         academicDegree = input("Grado académico: ")
+
+        while academicDegree == "":
+            academicDegree = input("Grado académico: ")
+
         nationality = input("Nacionalidad: ")
+
+        while nationality == "":
+            nationality = input("Nacionalidad: ")
+
         salary = float(input("Salario: "))
+
+        while salary <= 0:
+            salary = float(input("Salario: "))
 
         dataDict["ID"].append(employeeNumber)
         dataDict["Name"].append(fullName)
@@ -59,6 +96,7 @@ def firstExercise():
     ub = UBarranquilla(dataDict)
     ub.findMaxSalaryInfo()
     ub.findTotalForeignersAmount()
+
 
 def main():
     firstExercise()
