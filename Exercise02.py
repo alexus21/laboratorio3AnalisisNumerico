@@ -3,6 +3,7 @@ import numpy as np
 
 from modules.graphics import lineGraphics
 
+
 class Empresa:
     def __init__(self):
         self._vendorNumber = []
@@ -33,7 +34,7 @@ class Empresa:
 
     def generateYearlySales(self):
         for i in range(10):
-            self._yearlySales.append(np.random.randint(500000, 9999999))
+            self._yearlySales.append(np.random.randint(100000, 9999999))
 
     def generateMonthlySalary(self):
         for i in range(10):
@@ -86,16 +87,15 @@ class Empresa:
 
     def incrementSalary(self):
         df = self.genDataDict()
-        print("Salarios actuales: ")
+        print("Salarios actuales:")
         print(df[["Código", "Nombre completo", "Salario mensual"]])
 
-        incremented = np.where(df["Ventas anuales"] > 1500000,
-                                         df["Salario mensual"] * 1.15,
-                                         df["Salario mensual"])
+        # Actualziar salarios
+        df.loc[df["Ventas anuales"] > 1500000, "Salario mensual"] = df.loc[df["Ventas anuales"] > 1500000, "Salario mensual"] * 1.15
 
-        modifiedSalaries = df[df["Salario mensual"] != incremented]
+        # Obtener lista de salarios modificados
         print("Salarios modificados:")
-        print(modifiedSalaries[["Código", "Nombre completo", "Salario mensual"]])
+        print(df[["Código", "Nombre completo", "Salario mensual"]])
 
     def genAll(self):
         self.generateEmployeeCodes()
@@ -124,12 +124,12 @@ def ex02():
 
         if option == 2:
             e.incrementSalary()
-        #
+
         # if option == 3:
         #     e.getHighestSpendingDepartment()
-        #
-        # else:
-        #     print("Opción inválida")
+
+        else:
+            print("Opción inválida")
 
         continueAction = input("Desea continuar? [y/n]: ")
 
