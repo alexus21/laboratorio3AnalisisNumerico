@@ -25,7 +25,7 @@ class Empresa:
             "Ursula Perales",
             "Mercedes Arce",
             "Sergio Checa",
-            "Angela-Maria Torregrosa",
+            "Angela Torregrosa",
             "Enrique Acuña",
             "Jose Andres Pareja",
             "Alexandra Gaspar",
@@ -34,7 +34,7 @@ class Empresa:
 
     def generateYearlySales(self):
         for i in range(10):
-            self._yearlySales.append(np.random.randint(100000, 9999999))
+            self._yearlySales.append(np.random.randint(50000, 7500000))
 
     def generateMonthlySalary(self):
         for i in range(10):
@@ -97,6 +97,17 @@ class Empresa:
         print("Salarios modificados:")
         print(df[["Código", "Nombre completo", "Salario mensual"]])
 
+    def getEmployeesWithLowSales(self):
+        df = self.genDataDict()
+        df = df.loc[df["Ventas anuales"] < 300000]
+        result = df[["Código", "Nombre completo", "Ventas anuales"]]
+
+        if result.empty:
+            print("Ningún empleado vendió menos de $300K en el año")
+        else:
+            print("Empleados con ventas menores a $300K: ")
+            print(result)
+
     def genAll(self):
         self.generateEmployeeCodes()
         self.generateEmployeesNames()
@@ -116,7 +127,7 @@ def ex02():
     while continueAction == "y":
         print("1. Ventas totales anuales")
         print("2. Datos ingresos de profesores extranjeros")
-        print("3. Departamento con mas egresos")
+        print("3. Empleados con ventas menores a $300K")
         option = int(input("Seleccione una opción: "))
 
         if option == 1:
@@ -125,11 +136,11 @@ def ex02():
         if option == 2:
             e.incrementSalary()
 
-        # if option == 3:
-        #     e.getHighestSpendingDepartment()
+        if option == 3:
+            e.getEmployeesWithLowSales()
 
-        else:
-            print("Opción inválida")
+        # else:
+        #     print("Opción inválida")
 
         continueAction = input("Desea continuar? [y/n]: ")
 

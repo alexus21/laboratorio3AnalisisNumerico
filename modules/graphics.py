@@ -16,6 +16,11 @@ def createTotalPaymentsGraphic(totalDepPayments):
     plt.ylabel("Total de pagos")
     plt.title("Total de pagos por departamento")
     plt.grid()
+
+    # Add labels to each point
+    for x, y in zip(totalDepPayments.index, totalDepPayments.values):
+        plt.text(x, y, str(y))
+
     plt.show()
 
 
@@ -25,4 +30,8 @@ def lineGraphics(nEmployees, yearlySales):
     plt.ylabel("Ventas anuales")
     plt.title("Ventas anuales por empleado")
     plt.grid()
+
+    for i, (x, y) in enumerate(zip(nEmployees, yearlySales)):
+        plt.text(x, y, f"${y}")
+
     plt.show()
