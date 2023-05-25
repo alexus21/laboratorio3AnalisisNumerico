@@ -17,3 +17,12 @@ def createTotalPaymentsGraphic(totalDepPayments):
     plt.title("Total de pagos por departamento")
     plt.grid()
     plt.show()
+
+
+def lineGraphics(nEmployees, yearlySales):
+    plt.plot(nEmployees, yearlySales)
+    plt.xlabel("Empleado")
+    plt.ylabel("Ventas anuales")
+    plt.title("Ventas anuales por empleado")
+    plt.grid()
+    plt.show()
