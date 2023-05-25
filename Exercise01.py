@@ -87,7 +87,7 @@ class Barranquilla:
         df = self.genDataFrame()
         index = df["Salario"].idxmax()
         # Nombre, departamento, nacionalidad y sueldo
-        print("Datos del profesor con más salario:\n")
+        print("\nDatos del profesor con más salario:\n")
         print(df.loc[index, ["Nombre completo", "Departamento", "Nacionalidad", "Salario"]])
 
     def getTotalAmountPaidToForeigners(self):
@@ -103,33 +103,41 @@ class Barranquilla:
         values = [totalForeign, totalLocal]
 
         modules.graphics.createBarGraphic(labels, values)
+
         print("\n")
         print("Total pagado a extranjeros: $", totalForeign)
         print("Porcentaje respecto al total erogado: ", round(percentage, 2), "%")
 
     def getHighestSpendingDepartment(self):
         df = self.genDataFrame()
-
-        # Obtener el año actual
-        current_year = pd.Timestamp.now().year
-
-        # Filtrar los datos por el año actual
-        df_current_year = df[df.index.year == current_year]
-
-        # Calcular el total de ingresos por departamento
-        department_incomes = df_current_year.groupby("Departamento")["Salario"].sum()
-
-        # Obtener el departamento con el mayor total de ingresos
-        highest_income_department = department_incomes.idxmax()
-
-        print("Departamento con más ingresos en salarios durante el año:", highest_income_department)
-
+        highest_salary_department = df.groupby("Departamento")["Salario"].sum().idxmax()
+        print("\n")
+        print("Departamento con más ingresos en salarios durante el año:", highest_salary_department)
+        totalDepPayments = df.groupby("Departamento")["Salario"].sum()
+        modules.graphics.createTotalPaymentsGraphic(totalDepPayments)
 
 def ex01():
     e = Barranquilla()
     e.genAll()
-    e.getDataHighestEarningTeacher()
-    e.getTotalAmountPaidToForeigners()
-    # e.getHighestSpendingDepartment()
 
-ex01()
+    continueAction = "y"
+
+    while continueAction == "y":
+        print("1. Datos profesor con mas salario")
+        print("2. Datos ingresos de profesores extranjeros")
+        print("3. Departamento con mas egresos")
+        option = int(input("Seleccione una opción: "))
+
+        if option == 1:
+            e.getDataHighestEarningTeacher()
+
+        if option == 2:
+            e.getTotalAmountPaidToForeigners()
+
+        if option == 3:
+            e.getHighestSpendingDepartment()
+
+        else:
+            print("Opción inválida")
+
+        continueAction = input("Desea continuar? [y/n]: ")
