@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 def createBarGraphic(labels, values):
     plt.bar(labels, values)
     plt.xlabel("Tipo de profesor")
@@ -7,6 +8,7 @@ def createBarGraphic(labels, values):
     plt.title("Comparación de pagos a profesores extranjeros y locales")
     plt.grid()
     plt.show()
+
 
 def createTotalPaymentsGraphic(totalDepPayments):
     plt.plot(totalDepPayments.index, totalDepPayments.values)

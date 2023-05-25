@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 # Custom module
 import modules.graphics
+
 
 class Barranquilla:
     def __init__(self):
@@ -96,7 +96,7 @@ class Barranquilla:
         # Calcular el monto total pagado a profesores extranjeros
         totalForeign = df.loc[df["Nacionalidad"] != "Colombia", "Salario"].sum()
         totalLocal = df.loc[df["Nacionalidad"] == "Colombia", "Salario"].sum()
-        percentage = (totalForeign / df["Salario"].sum())*100
+        percentage = (totalForeign / df["Salario"].sum()) * 100
 
         # Crear una gráfica de barras que compare los pagos a extranjeros y locales
         labels = ["Extranjeros", "Locales"]
@@ -115,6 +115,7 @@ class Barranquilla:
         print("Departamento con más ingresos en salarios durante el año:", highest_salary_department)
         totalDepPayments = df.groupby("Departamento")["Salario"].sum()
         modules.graphics.createTotalPaymentsGraphic(totalDepPayments)
+
 
 def ex01():
     e = Barranquilla()
