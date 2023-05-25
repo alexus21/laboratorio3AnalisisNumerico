@@ -35,3 +35,27 @@ def lineGraphics(nEmployees, yearlySales):
         plt.text(x, y, f"${y}")
 
     plt.show()
+
+
+def pieGraphics(men, women, total):
+    menPercentage = (men / total) * 100
+    womenPercentage = (women / total) * 100
+
+    # Etiquetas y porcentajes
+    labels = ['Hombres\n{}'.format(menPercentage), 'Mujeres\n{}'.format(womenPercentage)]
+    sizes = [menPercentage, womenPercentage]
+    colours = ["#ff9999", "#66b3ff"]
+
+    # Crear la gráfica de pastel
+    plt.pie(sizes,
+            labels=labels,
+            colors=colours,
+            autopct='%1.1f%%',
+            startangle=90
+    )
+
+    # Título
+    plt.title("Porcentaje de Hombres y Mujeres Registrados")
+
+    # Mostrar la gráfica
+    plt.show()
