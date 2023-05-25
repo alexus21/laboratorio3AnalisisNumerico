@@ -13,6 +13,7 @@ class Empresa:
         self._paymentKey = []
         self._paymentForm = []
         self._bankName = []
+        self._accountNumber = []
 
     def generateEmployeeCodes(self):
         for i in range(10):
@@ -57,15 +58,20 @@ class Empresa:
         for i in range(10):
             self._bankName.append(np.random.choice(bankNameList))
 
+    def generateAccountNumbers(self):
+        for i in range(10):
+            self._accountNumber.append(np.random.randint(10000000, 99999999))
+
     def genDataDict(self):
         dataDict = {
-            "Código": self._vendorNumber,
+            "Codigo": self._vendorNumber,
             "Nombre completo": self._vendorFullName,
             "Ventas anuales": self._yearlySales,
             "Salario mensual": self._monthlySalary,
             "Clave de forma de pago": self._paymentKey,
             "Forma de pago": self._paymentForm,
-            "Banco: ": self._bankName
+            "Banco": self._bankName,
+            "Numero de cuenta": self._accountNumber
         }
 
         return pd.DataFrame(dataDict)
@@ -73,7 +79,7 @@ class Empresa:
     def getTotalSalesByEmployee(self):
         df = self.genDataDict()
         totalYearlySales = df["Ventas anuales"].sum()
-        print(df[["Código", "Nombre completo", "Ventas anuales"]])
+        print(df[["Codigo", "Nombre completo", "Ventas anuales"]])
         print("Ventas totales anuales: $", totalYearlySales)
 
         # Eje x
@@ -88,25 +94,38 @@ class Empresa:
     def incrementSalary(self):
         df = self.genDataDict()
         print("Salarios actuales:")
-        print(df[["Código", "Nombre completo", "Salario mensual"]])
+        print(df[["Codigo", "Nombre completo", "Salario mensual"]])
 
         # Actualziar salarios
         df.loc[df["Ventas anuales"] > 1500000, "Salario mensual"] = df.loc[df["Ventas anuales"] > 1500000, "Salario mensual"] * 1.15
 
         # Obtener lista de salarios modificados
-        print("Salarios modificados:")
-        print(df[["Código", "Nombre completo", "Salario mensual"]])
+        print("\nSalarios modificados:")
+        print(df[["Codigo", "Nombre completo", "Salario mensual"]])
 
     def getEmployeesWithLowSales(self):
         df = self.genDataDict()
         df = df.loc[df["Ventas anuales"] < 300000]
-        result = df[["Código", "Nombre completo", "Ventas anuales"]]
+        result = df[["Codigo", "Nombre completo", "Ventas anuales"]]
 
         if result.empty:
             print("Ningún empleado vendió menos de $300K en el año")
         else:
             print("Empleados con ventas menores a $300K: ")
             print(result)
+
+    def getEmployeesWithChecks(self):
+        df = self.genDataDict()
+        df = df.loc[df["Forma de pago"] == "Cheque"]
+        result = df[["Codigo", "Banco", "Numero de cuenta"]]
+
+        if result.empty:
+            print("Ningún empleado cobra en cheques")
+        else:
+            print("Datos de los empleados que cobran en cheques")
+            print(result)
+
+
 
     def genAll(self):
         self.generateEmployeeCodes()
@@ -116,6 +135,7 @@ class Empresa:
         self.generatePaymentMethods()
         self.generatePaymentKeys()
         self.generateBankNames()
+        self.generateAccountNumbers()
 
 
 def ex02():
@@ -126,23 +146,25 @@ def ex02():
 
     while continueAction == "y":
         print("1. Ventas totales anuales")
-        print("2. Datos ingresos de profesores extranjeros")
+        print("2. Aumentar salario a empleados con ventas mayores a $1.5M anuales")
         print("3. Empleados con ventas menores a $300K")
+        print("4. Empleados que cobran en cheques")
         option = int(input("Seleccione una opción: "))
 
         if option == 1:
             e.getTotalSalesByEmployee()
 
-        if option == 2:
+        elif option == 2:
             e.incrementSalary()
 
-        if option == 3:
+        elif option == 3:
             e.getEmployeesWithLowSales()
 
-        # else:
-        #     print("Opción inválida")
+        elif option == 4:
+            e.getEmployeesWithChecks()
+
+        else:
+            print("Opción inválida")
 
         continueAction = input("Desea continuar? [y/n]: ")
 
-
-ex02()
