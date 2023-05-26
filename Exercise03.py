@@ -7,11 +7,26 @@ from modules.graphics import pieGraphics, barGraphicsEx03
 
 class Hospital:
     def __init__(self):
+        self._names = []
         self._age = []
         self._sex = []
         self._condition = []
         self._address = []
         self._phone = []
+
+    def genNameList(self):
+        self._names = [
+            "Lucas Martínez",
+            "Valeria Sánchez",
+            "Diego López",
+            "Carolina Rodríguez",
+            "Juan García",
+            "Sofia Fernández",
+            "Andrés Ramirez",
+            "Laura Torres",
+            "Sebastián Herrera",
+            "Gabriela Ortiz"
+        ]
 
     def genAgeList(self):
         for i in range(10):
@@ -109,11 +124,12 @@ class Hospital:
 
     def genDataFrame(self):
         dataDict = {
+            "Nombre": self._names,
             "Edad": self._age,
             "Sexo": self._sex,
             "Condicion": self._condition,
             "Domicilio": self._address,
-            "Telefono: ": self._phone
+            "Telefono": self._phone
         }
 
         return pd.DataFrame(dataDict)
@@ -131,9 +147,16 @@ class Hospital:
         barGraphicsEx03(nConditions)
 
     def getDataOfHighConditions(self):
-        pass
+        df = self.genDataFrame()
+        maxGravityDetected = df[df["Condicion"] == "5"]
+        collectedNames = maxGravityDetected["Nombre"]
+        collectedPhones = maxGravityDetected["Telefono"]
+
+        for name, phone in zip(collectedNames, collectedPhones):
+            print(f"Nombre: {name}, Teléfono: {phone}")
 
     def genAll(self):
+        self.genNameList()
         self.genAgeList()
         self.genSexList()
         self.genConditionList()
