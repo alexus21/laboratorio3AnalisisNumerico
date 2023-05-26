@@ -141,10 +141,25 @@ class Hospital:
         total = men + women
         pieGraphics(men, women, total)
 
+        data = {
+            "Sexo": ["Hombres", "Mujeres", "Total"],
+            "Cantidad": [men, women, total]
+        }
+        result_df = pd.DataFrame(data)
+
+        # Exportar el DataFrame a un archivo Excel
+        result_df.to_excel("ex03-01-porcentajes-hombres-mujeres.xlsx", index=False)
+
     def quantityByConditions(self):
         df = self.genDataFrame()
         nConditions = df["Condicion"].value_counts()
         barGraphicsEx03(nConditions)
+
+        # Crear un nuevo DataFrame
+        result_df = pd.DataFrame(nConditions)
+
+        # Exportar el DataFrame a un archivo Excel
+        result_df.to_excel("ex03-02-condiciones/por-paciente.xlsx", index=False)
 
     def getDataOfHighConditions(self):
         df = self.genDataFrame()
@@ -152,9 +167,23 @@ class Hospital:
         collectedNames = maxGravityDetected["Nombre"]
         collectedPhones = maxGravityDetected["Telefono"]
 
-        print("Datos de pacientes con condición crítica (5)")
-        for name, phone in zip(collectedNames, collectedPhones):
-            print(f"Nombre: {name}, Teléfono: {phone}")
+        if maxGravityDetected.empty:
+            print("No hay pacientes con condición crítica")
+
+        else:
+            # Filtrar datos requeridos
+            data = {
+                "Nombre": collectedNames,
+                "Telefono": collectedPhones
+            }
+            dataToExport = pd.DataFrame(data)
+
+            # Exportar el DataFrame a un archivo Excel
+            dataToExport.to_excel("ex03-03-datos_condicion_critica.xlsx", index=False)
+
+            print("Datos de pacientes con condición crítica (5)")
+            for name, phone in zip(collectedNames, collectedPhones):
+                print(f"Nombre: {name}, Teléfono: {phone}")
 
     def genAll(self):
         self.genNameList()
