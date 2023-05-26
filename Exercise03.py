@@ -159,7 +159,7 @@ class Hospital:
         result_df = pd.DataFrame(nConditions)
 
         # Exportar el DataFrame a un archivo Excel
-        result_df.to_excel("ex03-02-condiciones/por-paciente.xlsx", index=False)
+        result_df.to_excel("ex03-02-condiciones-por-paciente.xlsx", index=False)
 
     def getDataOfHighConditions(self):
         df = self.genDataFrame()
