@@ -86,9 +86,16 @@ class Barranquilla:
     def getDataHighestEarningTeacher(self):
         df = self.genDataFrame()
         index = df["Salario"].idxmax()
+        dataToView = ["Nombre completo", "Departamento", "Nacionalidad", "Salario"]
         # Nombre, departamento, nacionalidad y sueldo
         print("\nDatos del profesor con más salario:\n")
-        print(df.loc[index, ["Nombre completo", "Departamento", "Nacionalidad", "Salario"]])
+        print(df.loc[index, dataToView])
+
+        # Filtrar datos
+        dataToExport = df.loc[index, dataToView]
+
+        # Exportar a excel
+        dataToExport.to_excel("datos-docente-con-mas-ingresos.xlsx", index=False)
 
     def getTotalAmountPaidToForeigners(self):
         df = self.genDataFrame()
@@ -108,12 +115,24 @@ class Barranquilla:
         print("Total pagado a extranjeros: $", totalForeign)
         print("Porcentaje respecto al total erogado: ", round(percentage, 2), "%")
 
+        dataToExport = pd.DataFrame({"Tipo": ["Extranjeros", "Locales"], "Monto Total Pagado": [totalForeign, totalLocal]})
+        dataToExport.to_excel("data-extranjeros.xlsx", index=False)
+
     def getHighestSpendingDepartment(self):
         df = self.genDataFrame()
         highest_salary_department = df.groupby("Departamento")["Salario"].sum().idxmax()
         print("\n")
         print("Departamento con más ingresos en salarios durante el año:", highest_salary_department)
         totalDepPayments = df.groupby("Departamento")["Salario"].sum()
+
+        # Crear nuevo df para los datos requeridos
+        department_data = pd.DataFrame(
+            {"Departamento": totalDepPayments.index, "Total Pagado": totalDepPayments.values})
+
+        # Exportar
+        department_data.to_excel("departamento-con-mas-egresos.xlsx", index=False)
+
+        # Dibujar la gráfica
         modules.graphics.createTotalPaymentsGraphic(totalDepPayments)
 
 
