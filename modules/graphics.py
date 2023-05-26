@@ -59,3 +59,12 @@ def pieGraphics(men, women, total):
 
     # Mostrar la gráfica
     plt.show()
+
+
+def barGraphicsEx03(condition):
+    plt.bar(condition.index, condition.values)
+    plt.xlabel("Condición")
+    plt.ylabel("Cantidad de pacientes")
+    plt.title("Cantidad de pacientes por condición")
+    plt.grid()
+    plt.show()

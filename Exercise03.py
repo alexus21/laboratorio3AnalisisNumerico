@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 
 # Custom module
-from modules.graphics import pieGraphics
+from modules.graphics import pieGraphics, barGraphicsEx03
+
 
 class Hospital:
     def __init__(self):
@@ -125,7 +126,9 @@ class Hospital:
         pieGraphics(men, women, total)
 
     def quantityByConditions(self):
-        pass
+        df = self.genDataFrame()
+        nConditions = df["Condicion"].value_counts()
+        barGraphicsEx03(nConditions)
 
     def getDataOfHighConditions(self):
         pass
