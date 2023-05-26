@@ -152,6 +152,7 @@ class Hospital:
         collectedNames = maxGravityDetected["Nombre"]
         collectedPhones = maxGravityDetected["Telefono"]
 
+        print("Datos de pacientes con condición crítica (5)")
         for name, phone in zip(collectedNames, collectedPhones):
             print(f"Nombre: {name}, Teléfono: {phone}")
 
@@ -190,5 +191,3 @@ def ex03():
 
         continueAction = input("Desea continuar? [y/n]: ")
 
-
-ex03()

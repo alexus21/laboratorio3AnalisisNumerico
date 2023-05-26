@@ -3,6 +3,7 @@
 
 from Exercise01 import ex01
 from Exercise02 import ex02
+from Exercise03 import ex03
 
 def main():
     continueAction = "y"
@@ -20,9 +21,9 @@ def main():
         if option == 2:
             ex02()
 
-        #
-        # if option == 3:
-        #     e.getHighestSpendingDepartment()
+
+        if option == 3:
+            ex03()
 
         if option == 99:
             exit(0)
