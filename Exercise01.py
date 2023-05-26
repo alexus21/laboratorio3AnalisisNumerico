@@ -95,7 +95,7 @@ class Barranquilla:
         dataToExport = df.loc[index, dataToView]
 
         # Exportar a excel
-        dataToExport.to_excel("datos-docente-con-mas-ingresos.xlsx", index=False)
+        dataToExport.to_excel("ex01-01-datos-docente-con-mas-ingresos.xlsx", index=False)
 
     def getTotalAmountPaidToForeigners(self):
         df = self.genDataFrame()
@@ -116,7 +116,7 @@ class Barranquilla:
         print("Porcentaje respecto al total erogado: ", round(percentage, 2), "%")
 
         dataToExport = pd.DataFrame({"Tipo": ["Extranjeros", "Locales"], "Monto Total Pagado": [totalForeign, totalLocal]})
-        dataToExport.to_excel("data-extranjeros.xlsx", index=False)
+        dataToExport.to_excel("ex01-02-data-extranjeros.xlsx", index=False)
 
     def getHighestSpendingDepartment(self):
         df = self.genDataFrame()
@@ -130,7 +130,7 @@ class Barranquilla:
             {"Departamento": totalDepPayments.index, "Total Pagado": totalDepPayments.values})
 
         # Exportar
-        department_data.to_excel("departamento-con-mas-egresos.xlsx", index=False)
+        department_data.to_excel("ex01-03-departamento-con-mas-egresos.xlsx", index=False)
 
         # Dibujar la gráfica
         modules.graphics.createTotalPaymentsGraphic(totalDepPayments)

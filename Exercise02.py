@@ -88,6 +88,9 @@ class Empresa:
         # Eje y
         yearlySales = df["Ventas anuales"]
 
+        # Exportar a excel
+        df[["Codigo", "Nombre completo", "Ventas anuales"]].to_excel("ex02-Ventas-totales-por-empleado.xlsx", index=False)
+
         # Gráfica
         lineGraphics(employees, yearlySales)
 
@@ -103,6 +106,8 @@ class Empresa:
         print("\nSalarios modificados:")
         print(df[["Codigo", "Nombre completo", "Salario mensual"]])
 
+        df[["Codigo", "Nombre completo", "Salario mensual"]].to_excel("ex02-02-salarios-incrementados.xlsx", index=False)
+
     def getEmployeesWithLowSales(self):
         df = self.genDataDict()
         df = df.loc[df["Ventas anuales"] < 300000]
@@ -113,6 +118,8 @@ class Empresa:
         else:
             print("Empleados con ventas menores a $300K: ")
             print(result)
+
+        result.to_excel("ex02-03-empleados-con-pocas-ventas.xlsx", index=False)
 
     def getEmployeesWithChecks(self):
         df = self.genDataDict()
@@ -125,7 +132,7 @@ class Empresa:
             print("Datos de los empleados que cobran en cheques")
             print(result)
 
-
+        result.to_excel("ex02-04-empleados-que-cobran-en-cheques.xlsx", index=False)
 
     def genAll(self):
         self.generateEmployeeCodes()
